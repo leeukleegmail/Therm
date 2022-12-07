@@ -1,7 +1,7 @@
 from helpers import initialise, clear, get_temperature_and_write_to_display, do_leds_clockwise, do_leds_anticlockwise, \
     quarter_brightness, next_brightness
 
-last_temperature =initialise()
+last_temperature = initialise()
 
 while True:
     clear()
