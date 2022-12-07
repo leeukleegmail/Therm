@@ -19,10 +19,12 @@ bus = I2C(scl=Pin(4), sda=Pin(5), freq=100000)
 bmp180 = BMP180(bus)
 np = neopixel.NeoPixel(machine.Pin(14), num_leds)
 
+
 def get_temperature_and_write_to_display():
     temp = bmp180.temperature
     tm.temperature(int(temp))
     return temp
+
 
 def blink_led(led_num, red=0, green=0, blue=0, flash_red=0, flash_green=0, flash_blue=0):
     count = 0
@@ -33,6 +35,7 @@ def blink_led(led_num, red=0, green=0, blue=0, flash_red=0, flash_green=0, flash
         time.sleep(0.01)
         count += 1
 
+
 def turn_led_on(led_num, red=0, green=0, blue=0):
     np[led_num] = (red, green, blue)
     np.write()
@@ -42,12 +45,15 @@ def turn_led_off(led_num):
     np[led_num] = (0, 0, 0)
     np.write()
 
+
 def clear():
     switch_all_leds()
+
 
 def switch_all_leds(red=0, green=0, blue=0):
     np.fill((red, green, blue))
     np.write()
+
 
 def do_leds_clockwise(led_num=0, loop=0, red=0, green=0, blue=0, flash_red=0, flash_green=0, flash_blue=0):
     while loop != 200:
@@ -60,11 +66,12 @@ def do_leds_clockwise(led_num=0, loop=0, red=0, green=0, blue=0, flash_red=0, fl
             led_num += 1
         else:
             led_num = 0
-        loop +=1
+        loop += 1
+
 
 def do_leds_anticlockwise(led_num=0, loop=0, red=0, green=0, blue=0, flash_red=0, flash_green=0, flash_blue=0):
     while loop != 200:
-        if led_num  != 0:
+        if led_num != 0:
             switch_all_leds(red=flash_red, green=flash_green, blue=flash_blue)
             if led_num < 0:
                 turn_led_on(led_num + 1, red=red, green=green, blue=blue)
@@ -73,7 +80,8 @@ def do_leds_anticlockwise(led_num=0, loop=0, red=0, green=0, blue=0, flash_red=0
             led_num -= 1
         else:
             led_num = 11
-        loop +=1
+        loop += 1
+
 
 def initialise():
     tm.show('Init')
